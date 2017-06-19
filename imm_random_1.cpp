@@ -68,7 +68,6 @@ struct Parameters
         assert (det_tx_duration > 0);
         assert (rand_tx_duration + det_tx_duration <= res_period);
         assert (mean_access_time > 0);
-        assert (current_age >= 0);
         assert (current_size >=0);
         assert (batch_index >=0);
         assert (max_batch_size > 0);
@@ -238,6 +237,8 @@ int main(int argc, char** argv){
     int seed = params.seed;
     bool random_on = params.random_on;
 
+    
+
     int dPackets = 0; //dropped packets
     int sPackets = 0; //successful packets
     int srandPackets = 0; //successful packets in random access
@@ -271,7 +272,7 @@ int main(int argc, char** argv){
         int curr_batch_index = batch_index;
         Time curr_batch_age = current_age;
         trace_ended = false;
-        while( curr_batch_age >= 0){
+        while(curr_batch_age >= 0){
             for (int i = 0; i < curr_batch_size; ++i)
                 packets.push_back(Packet(-curr_batch_age, curr_batch_index));
 
@@ -401,6 +402,7 @@ int main(int argc, char** argv){
 
     double PLR = static_cast<double>(dPackets) / (srandPackets + sPackets + dPackets);
 
+    //STATE CREATING
     if (!packets.empty()){
         Time time = packets.front().time;
         int index = packets.front().index;
@@ -416,10 +418,10 @@ int main(int argc, char** argv){
                 break;
         }
         batch_index = index;
-        current_age = last_res_time - current_age + res_period;
+        current_age = last_res_time - time + res_period;
     }
     else{
-        current_age = last_res_time - last_arr_time - arr_period + res_period;
+        current_age = last_res_time - last_arr_time - arr_period + res_period; //CURRENT_AGE < 0
         batch_index = batch_index;
         if (batch_index <= batch_stream.size() - 1)
             current_size = batch_stream[batch_index];
@@ -447,10 +449,31 @@ int main(int argc, char** argv){
               << "srandPackets = " << srandPackets << std::endl
 
               << "PLR = " << PLR << std::endl
-              << "batch_size = " << batch_stream.size() << std::endl
-              ;*/
+              << "batch_size = " << batch_stream.size() << std::endl*/
+              ;
 
-    std::ofstream myfile("output.txt", std::ofstream::app);
+    std::cout << seed << std::endl
+              << res_period << std::endl
+              << PLR << std::endl
+              << arr_period << std::endl
+              << batchfile_path << std::endl
+              << delay_bound << std::endl
+              << det_per << std::endl
+              << ran_per << std::endl
+              << window_size << std::endl
+              << rand_tx_duration << std::endl
+              << det_tx_duration << std::endl              
+              << mean_access_time << std::endl
+              << max_batch_size << std::endl
+              << random_on << std::endl
+              << current_age << std::endl
+              << current_size << std::endl
+              << batch_index
+              
+              
+              ;
+
+    /*std::ofstream myfile("output.txt", std::ofstream::app);
 
     if (myfile.is_open())
     {
@@ -460,7 +483,7 @@ int main(int argc, char** argv){
     else
         std::cout << "Unable to open file";
 
-    myfile.close();
+    myfile.close();*/
 
     return 0;
 }
