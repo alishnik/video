@@ -66,7 +66,7 @@ struct Parameters
         assert (seed > 0);
         assert (rand_tx_duration > 0);
         assert (det_tx_duration > 0);
-        assert (rand_tx_duration + det_tx_duration <= res_period);
+        //assert (rand_tx_duration + det_tx_duration <= res_period);
         assert (mean_access_time > 0);
         assert (current_size >=0);
         assert (batch_index >=0);
@@ -452,25 +452,23 @@ int main(int argc, char** argv){
               << "batch_size = " << batch_stream.size() << std::endl*/
               ;
 
-    std::cout << seed << std::endl
-              << res_period << std::endl
-              << PLR << std::endl
-              << arr_period << std::endl
-              << batchfile_path << std::endl
-              << delay_bound << std::endl
-              << det_per << std::endl
-              << ran_per << std::endl
-              << window_size << std::endl
-              << rand_tx_duration << std::endl
-              << det_tx_duration << std::endl              
-              << mean_access_time << std::endl
-              << max_batch_size << std::endl
-              << random_on << std::endl
-              << current_age << std::endl
-              << current_size << std::endl
-              << batch_index
-              
-              
+    std::cout << "seed" << std::endl << seed << std::endl
+              << "res_period" << std::endl << res_period << std::endl
+              << "arr_period" << std::endl << arr_period << std::endl
+              << "batchfile_path" << std::endl << batchfile_path << std::endl
+              << "delay_bound" << std::endl << delay_bound << std::endl
+              << "det_per" << std::endl << det_per << std::endl
+              << "ran_per" << std::endl << ran_per << std::endl
+              << "window_size" << std::endl << window_size << std::endl
+              << "rand_tx_duration" << std::endl << rand_tx_duration << std::endl
+              << "det_tx_duration" << std::endl << det_tx_duration << std::endl
+              << "mean_access_time" << std::endl << mean_access_time << std::endl
+              << "max_batch_size" << std::endl << max_batch_size << std::endl
+              << "random_on" << std::endl << random_on << std::endl
+              << "current_age" << std::endl << current_age << std::endl
+              << "current_size" << std::endl << current_size << std::endl
+              << "batch_index" << std::endl << batch_index << std::endl
+              << "PLR" << std::endl 	<< PLR
               ;
 
     /*std::ofstream myfile("output.txt", std::ofstream::app);
